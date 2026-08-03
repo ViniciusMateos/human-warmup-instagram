@@ -1,0 +1,22 @@
+# sessão logada do navegador (NUNCA commitar — contém cookies/sessionid)
+browser_profile/
+cookies/
+*cookies*.json
+*.session
+
+# saídas em runtime
+output/
+*.log
+
+# modos salvos (dados do usuário — defaults vivem em perfis.py)
+perfis.json
+chats.json
+
+# proxy (credenciais — NUNCA commitar)
+proxy.json
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
