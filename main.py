@@ -125,11 +125,18 @@ def run(dry=False, ignorar_janela=False):
         ja_explorou = False
 
         def _label():
-            # placar ao vivo na barrinha + tempo restante (o aquecimento é medido por tempo)
+            # placar ao vivo na barrinha + tempo restante (o aquecimento é medido por tempo).
+            # OMITE os contadores em 0 pra não estourar a linha do LA ("...· stor...") — só
+            # aparece o que realmente rolou.
             restam = max(0, int(fim - time.monotonic()))
             mm, ss = divmod(restam, 60)
             falta = f"{mm}m {ss:02d}s" if mm else f"{ss}s"
-            return f"faltam {falta} · curtidas {curtidas} · stories {stories_vistos}"
+            partes = [f"faltam {falta}"]
+            if curtidas:
+                partes.append(f"{curtidas} curtida" + ("s" if curtidas != 1 else ""))
+            if stories_vistos:
+                partes.append(f"{stories_vistos} stories")
+            return " · ".join(partes)
 
         progresso(0, total, _label())
 
